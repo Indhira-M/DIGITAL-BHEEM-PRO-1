@@ -1,0 +1,52 @@
+public boolean login(String username, String password) throws SQLException {
+        Statement statement = this.con.createStatement();
+        String q = String.format("select password from admin where username = '%s';", username);
+        ResultSet resultSet = statement.executeQuery(q);
+//        gets us password if the username exists
+        if(resultSet.next()){
+//            compare password with user input
+            if(resultSet.getString(1).equals(password)){
+                return true;
+            }
+            else {
+                JFrame popup = new JFrame("Invalid password");
+                JLabel popupMsg = new JLabel("The password you entered is invalid.");
+                popupMsg.setBounds(20,10,300,50);
+                popupMsg.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+                popup.add(popupMsg);
+
+                JButton button = new JButton("OK");
+                button.setBounds(120,60,70,20);
+                button.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+                button.addActionListener(actionEvent2 -> {
+                    popup.dispose();
+                });
+                popup.add(button);
+
+                popup.setLayout(null);
+                popup.setSize(350, 150);
+                popup.setVisible(true);
+                return false;
+            }
+        }
+        else {
+            JFrame popup = new JFrame("Invalid username");
+            JLabel popupMsg = new JLabel("The username you entered does not exist.");
+            popupMsg.setBounds(20,10,500,50);
+            popupMsg.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+            popup.add(popupMsg);
+
+            JButton button = new JButton("OK");
+            button.setBounds(170,60,70,20);
+            button.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+            button.addActionListener(actionEvent2 -> {
+                popup.dispose();
+            });
+            popup.add(button);
+
+            popup.setLayout(null);
+            popup.setSize(450, 150);
+            popup.setVisible(true);
+            return false;
+        }
+    }
