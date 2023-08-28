@@ -1,0 +1,8 @@
+// gets the required driver
+Class.forName("com.mysql.cj.jdbc.Driver");
+// creates connection with sql
+String dbName = "ems";
+String db_username = "root";
+String db_password = "master";
+Connection con= DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/"+dbName, db_username, db_password);
